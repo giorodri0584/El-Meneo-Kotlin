@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,29 +20,32 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.Abs
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
 import com.rodriguez.giomar.el_meneo.databinding.FragmentYoutubeVideoPlayerBinding
 import com.rodriguez.giomar.el_meneo.utils.FullScreenHelper
+import com.rodriguez.giomar.el_meneo.viewModels.shared.SharedYoutubeVideoViewModel
 
 class YoutubeVideoPlayerFragment : Fragment() {
     private val TAG = "YoutubeVideoPlayerFragment"
     private var _binding: FragmentYoutubeVideoPlayerBinding? = null
     private val binding get() = _binding!!
-    private lateinit var fullScreenHelper: FullScreenHelper
+    private lateinit var sharedModel: SharedYoutubeVideoViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentYoutubeVideoPlayerBinding.inflate(inflater, container, false)
-        fullScreenHelper = FullScreenHelper(activity)
+        sharedModel = ViewModelProvider(requireActivity())[SharedYoutubeVideoViewModel::class.java]
         addFullScreenListenerToPlayer()
         lifecycle.addObserver(binding.youtubePlayerView)
-
-        binding.youtubePlayerView.addYouTubePlayerListener(object :
-            AbstractYouTubePlayerListener() {
-            override fun onReady(youTubePlayer: YouTubePlayer) {
-                super.onReady(youTubePlayer)
-                val videoId = "xeH1aWD9zOw"
-                youTubePlayer.loadVideo(videoId, 0.toFloat())
-            }
+        sharedModel.selectedYoutubeVideo.observe(viewLifecycleOwner, Observer { video ->
+            binding.youtubePlayerView.addYouTubePlayerListener(object :
+                AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    super.onReady(youTubePlayer)
+                    val videoId = video.videoId
+                    youTubePlayer.loadVideo(videoId, 0.toFloat())
+                }
+            })
         })
+
         binding.topAppBar.setNavigationOnClickListener {
             findNavController().navigateUp()
         }

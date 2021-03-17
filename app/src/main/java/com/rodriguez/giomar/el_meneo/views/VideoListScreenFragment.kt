@@ -15,6 +15,7 @@ import com.rodriguez.giomar.el_meneo.R
 import com.rodriguez.giomar.el_meneo.adapter.YoutubeVideoListAdapter
 import com.rodriguez.giomar.el_meneo.databinding.FragmentVideoListScreenBinding
 import com.rodriguez.giomar.el_meneo.viewModels.VideoListScreenFragmentViewModel
+import com.rodriguez.giomar.el_meneo.viewModels.shared.SharedYoutubeVideoViewModel
 
 class VideoListScreenFragment : Fragment() {
     val TAG = "VideoListScreenFragment"
@@ -22,6 +23,7 @@ class VideoListScreenFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var videoAdapter: YoutubeVideoListAdapter
     private lateinit var model: VideoListScreenFragmentViewModel
+    private lateinit var sharedModel: SharedYoutubeVideoViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -32,6 +34,7 @@ class VideoListScreenFragment : Fragment() {
     ): View? {
         _binding = FragmentVideoListScreenBinding.inflate(inflater, container, false)
         model = ViewModelProvider(this)[VideoListScreenFragmentViewModel::class.java]
+        sharedModel = ViewModelProvider(requireActivity())[SharedYoutubeVideoViewModel::class.java]
         initializeRecyclerView()
         model.getVideos().observe(viewLifecycleOwner, Observer { videos ->
             videoAdapter.setVideos(videos)
@@ -49,7 +52,7 @@ class VideoListScreenFragment : Fragment() {
         binding.rvYoutubeVideoList.apply {
             layoutManager = LinearLayoutManager(context)
             videoAdapter = YoutubeVideoListAdapter(){ video ->
-                val action = VideoListScreenFragmentDirections.actionVideoListScreenFragmentToYoutubeVideoPlayerFragment()
+                sharedModel.setSelectedYoutubeVideo(video)
                 findNavController().navigate(R.id.action_videoListScreenFragment_to_youtubeVideoPlayerFragment)
             }
             adapter = videoAdapter
