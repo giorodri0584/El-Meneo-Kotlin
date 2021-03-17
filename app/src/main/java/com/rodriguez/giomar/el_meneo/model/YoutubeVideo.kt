@@ -1,8 +1,11 @@
 package com.rodriguez.giomar.el_meneo.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-data class YoutubeVideo(
+@Parcelize
+data class YoutubeVideo (
     @SerializedName("video_id")
     var videoId: String,
     @SerializedName("title")
@@ -16,4 +19,4 @@ data class YoutubeVideo(
     @SerializedName("author_image_url")
     var channelImageUrl: String
 
-)
+) : Parcelable
