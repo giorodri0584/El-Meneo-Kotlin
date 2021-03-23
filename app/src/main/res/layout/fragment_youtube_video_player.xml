@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTint="@color/background"
     tools:context=".views.YoutubeVideoPlayerFragment" >
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -15,7 +16,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="El Meneo"
+        app:titleTextColor="@color/black"
+        android:backgroundTint="@color/white"
         app:navigationIcon="@drawable/ic_arrow_back_24"
+        app:navigationIconTint="@color/black"
         />
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -30,14 +34,22 @@
 
     <com.mikhaellopez.circularimageview.CircularImageView
         android:id="@+id/iv_channel"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:src="@drawable/image"
-        app:civ_border_color="#3f51b5"
-        app:civ_border_width="4dp"
-        app:civ_shadow="true"
-        app:civ_shadow_color="#3f51b5"
-        app:civ_shadow_radius="10"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/abc_vector_test"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/youtube_player_view" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_channel"
         app:layout_constraintTop_toBottomOf="@+id/youtube_player_view" />
 </androidx.constraintlayout.widget.ConstraintLayout>

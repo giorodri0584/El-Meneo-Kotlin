@@ -21,6 +21,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.You
 import com.rodriguez.giomar.el_meneo.databinding.FragmentYoutubeVideoPlayerBinding
 import com.rodriguez.giomar.el_meneo.utils.FullScreenHelper
 import com.rodriguez.giomar.el_meneo.viewModels.shared.SharedYoutubeVideoViewModel
+import com.squareup.picasso.Picasso
 
 class YoutubeVideoPlayerFragment : Fragment() {
     private val TAG = "YoutubeVideoPlayerFragment"
@@ -41,6 +42,8 @@ class YoutubeVideoPlayerFragment : Fragment() {
                 override fun onReady(youTubePlayer: YouTubePlayer) {
                     super.onReady(youTubePlayer)
                     val videoId = video.videoId
+                    loadChannelImage(video.channelImageUrl)
+                    binding.tvTitle.text = video.title
                     youTubePlayer.loadVideo(videoId, 0.toFloat())
                 }
             })
@@ -55,7 +58,9 @@ class YoutubeVideoPlayerFragment : Fragment() {
         // Inflate the layout for this fragment
         return binding.root
     }
-
+    private fun loadChannelImage(channelImageUrl: String) {
+        Picasso.get().load(channelImageUrl).into(binding.ivChannel)
+    }
     private fun addFullScreenListenerToPlayer() {
         binding.youtubePlayerView.addFullScreenListener(object: YouTubePlayerFullScreenListener {
             override fun onYouTubePlayerEnterFullScreen() {
