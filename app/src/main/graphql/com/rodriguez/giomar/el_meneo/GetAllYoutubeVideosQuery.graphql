@@ -1,0 +1,14 @@
+query GetAllYoutubeVideos {
+    YoutubeVideos {
+        videoId
+        title
+        videoCoverImageUrl
+        channelName
+        channelImageUrl
+        channelUrl
+        likesCount
+        viewCount
+        updatedAt
+        commentsCount
+    }
+}
