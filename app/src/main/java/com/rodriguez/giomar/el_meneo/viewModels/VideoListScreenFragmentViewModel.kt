@@ -12,11 +12,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class VideoListScreenFragmentViewModel : ViewModel() {
-    private val _videos: LiveData<YoutubeVideo> by lazy {
-        MutableLiveData<YoutubeVideo>().also {
+    private val _videos: MutableLiveData<List<YoutubeVideo>> by lazy {
+        MutableLiveData<List<YoutubeVideo>>().also {
             fetchYoutubeVideos()
         }
     }
+    //val videos: LiveData<List<>>
     private val isLoading: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>().also { true }
     }
@@ -30,7 +31,7 @@ class VideoListScreenFragmentViewModel : ViewModel() {
                 Log.d("ViewModel", video.title)
             }
             withContext(Dispatchers.Main){
-                //videos.value = fetchedVideos?
+                _videos.value = fetchedVideos
                 isLoading.value = false
             }
         }
