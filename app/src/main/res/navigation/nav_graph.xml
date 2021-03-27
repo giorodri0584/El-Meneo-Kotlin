@@ -17,5 +17,9 @@
         android:id="@+id/youtubeVideoPlayerFragment"
         android:name="com.rodriguez.giomar.el_meneo.views.YoutubeVideoPlayerFragment"
         android:label="fragment_youtube_video_player"
-        tools:layout="@layout/fragment_youtube_video_player" />
+        tools:layout="@layout/fragment_youtube_video_player" >
+        <argument
+            android:name="selectedVideo"
+            app:argType="com.rodriguez.giomar.el_meneo.GetAllYoutubeVideosQuery$YoutubeVideo" />
+    </fragment>
 </navigation>

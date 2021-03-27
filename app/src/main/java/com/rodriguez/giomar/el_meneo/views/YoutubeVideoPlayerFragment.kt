@@ -12,6 +12,7 @@ import android.view.WindowInsets
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavArgs
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -28,26 +29,28 @@ class YoutubeVideoPlayerFragment : Fragment() {
     private var _binding: FragmentYoutubeVideoPlayerBinding? = null
     private val binding get() = _binding!!
     private lateinit var sharedModel: SharedYoutubeVideoViewModel
+    private val args by navArgs<YoutubeVideoPlayerFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentYoutubeVideoPlayerBinding.inflate(inflater, container, false)
+        val selectedVideo = args.selectedVideo
         sharedModel = ViewModelProvider(requireActivity())[SharedYoutubeVideoViewModel::class.java]
         addFullScreenListenerToPlayer()
         lifecycle.addObserver(binding.youtubePlayerView)
-        sharedModel.selectedYoutubeVideo.observe(viewLifecycleOwner, Observer { video ->
-            binding.youtubePlayerView.addYouTubePlayerListener(object :
-                AbstractYouTubePlayerListener() {
-                override fun onReady(youTubePlayer: YouTubePlayer) {
-                    super.onReady(youTubePlayer)
-                    val videoId = video.videoId
-                    loadChannelImage(video.channelImageUrl)
-                    binding.tvTitle.text = video.title
-                    youTubePlayer.loadVideo(videoId, 0.toFloat())
-                }
-            })
+
+        binding.youtubePlayerView.addYouTubePlayerListener(object :
+            AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                super.onReady(youTubePlayer)
+                val videoId = selectedVideo.videoId
+                loadChannelImage(selectedVideo.channelImageUrl)
+                binding.tvTitle.text = selectedVideo.title
+                youTubePlayer.loadVideo(videoId, 0.toFloat())
+            }
         })
+
 
         binding.topAppBar.setNavigationOnClickListener {
             findNavController().navigateUp()
