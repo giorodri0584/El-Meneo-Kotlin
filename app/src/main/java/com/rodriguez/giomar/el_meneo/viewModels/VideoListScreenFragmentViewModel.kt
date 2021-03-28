@@ -1,10 +1,11 @@
 package com.rodriguez.giomar.el_meneo.viewModels
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.rodriguez.giomar.el_meneo.GetAllYoutubeVideosQuery.YoutubeVideo
+import com.rodriguez.giomar.el_meneo.GetAllYoutubeVideosQuery
+import com.rodriguez.giomar.el_meneo.extension.toYoutubeVideo
+import com.rodriguez.giomar.el_meneo.model.YoutubeVideo
 import com.rodriguez.giomar.el_meneo.repository.YoutubeVideoRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,12 +27,14 @@ class VideoListScreenFragmentViewModel : ViewModel() {
     fun getIsLoading() = isLoading
     private fun fetchYoutubeVideos() {
         CoroutineScope(Dispatchers.IO).launch {
-            val fetchedVideos: List<YoutubeVideo> = YoutubeVideoRepository.getYoutubeVideos()
+            val fetchedVideos: List<GetAllYoutubeVideosQuery.YoutubeVideo> = YoutubeVideoRepository.getYoutubeVideos()
+            val castVideos: MutableList<com.rodriguez.giomar.el_meneo.model.YoutubeVideo> = mutableListOf()
             for (video in fetchedVideos){
                 Log.d("ViewModel", video.title)
+                castVideos.add(video.toYoutubeVideo())
             }
             withContext(Dispatchers.Main){
-                _videos.value = fetchedVideos
+                _videos.value = castVideos
                 isLoading.value = false
             }
         }

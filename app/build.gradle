@@ -8,7 +8,6 @@ apply plugin: "com.apollographql.apollo"
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
-
     defaultConfig {
         applicationId "com.rodriguez.giomar.el_meneo"
         minSdkVersion 21
