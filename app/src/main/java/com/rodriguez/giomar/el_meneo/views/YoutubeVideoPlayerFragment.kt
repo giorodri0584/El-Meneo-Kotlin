@@ -29,13 +29,17 @@ class YoutubeVideoPlayerFragment : Fragment() {
     private var _binding: FragmentYoutubeVideoPlayerBinding? = null
     private val binding get() = _binding!!
     private lateinit var sharedModel: SharedYoutubeVideoViewModel
-    //private val args by navArgs<YoutubeVideoPlayerFragmentArgs>()
+    private val args by navArgs<YoutubeVideoPlayerFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentYoutubeVideoPlayerBinding.inflate(inflater, container, false)
-        //val selectedVideo = args.selectedVideo
+        val selectedVideo = args.selectedVideo
+
+        loadChannelImage(selectedVideo.channelImageUrl)
+        binding.tvTitle.text = selectedVideo.title
+        binding.tvChannelName.text = selectedVideo.channelName
         sharedModel = ViewModelProvider(requireActivity())[SharedYoutubeVideoViewModel::class.java]
         addFullScreenListenerToPlayer()
         lifecycle.addObserver(binding.youtubePlayerView)
@@ -43,11 +47,9 @@ class YoutubeVideoPlayerFragment : Fragment() {
         binding.youtubePlayerView.addYouTubePlayerListener(object :
             AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
-//                super.onReady(youTubePlayer)
-//                val videoId = selectedVideo.videoId
-//                loadChannelImage(selectedVideo.channelImageUrl)
-//                binding.tvTitle.text = selectedVideo.title
-                //youTubePlayer.loadVideo(videoId, 0.toFloat())
+                super.onReady(youTubePlayer)
+                val videoId = selectedVideo.videoId
+                youTubePlayer.loadVideo(videoId, 0.toFloat())
             }
         })
 

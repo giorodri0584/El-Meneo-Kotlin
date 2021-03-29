@@ -52,7 +52,7 @@ class VideoListScreenFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             videoAdapter = YoutubeVideoListAdapter(){ selectedVideo ->
                 //sharedModel.setSelectedYoutubeVideo(video)
-                val action = VideoListScreenFragmentDirections.actionVideoListScreenFragmentToYoutubeVideoPlayerFragment()
+                val action = VideoListScreenFragmentDirections.actionVideoListScreenFragmentToYoutubeVideoPlayerFragment(selectedVideo)
                 findNavController().navigate(action)
             }
             adapter = videoAdapter

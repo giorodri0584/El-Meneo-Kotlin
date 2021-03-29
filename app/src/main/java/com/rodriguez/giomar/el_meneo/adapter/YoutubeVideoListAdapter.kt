@@ -1,5 +1,6 @@
 package com.rodriguez.giomar.el_meneo.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rodriguez.giomar.el_meneo.databinding.YoutubeVideoListItemBinding
 import com.rodriguez.giomar.el_meneo.model.YoutubeVideo
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_youtube_video_player.view.*
 import kotlinx.android.synthetic.main.youtube_video_list_item.view.*
 
 class YoutubeVideoListAdapter(val onVideoSelect: (YoutubeVideo)-> Unit) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
