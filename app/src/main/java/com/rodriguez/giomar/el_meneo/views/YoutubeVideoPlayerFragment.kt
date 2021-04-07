@@ -1,7 +1,6 @@
 package com.rodriguez.giomar.el_meneo.views
 
 import android.content.pm.ActivityInfo
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -12,15 +11,18 @@ import android.view.WindowInsets
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavArgs
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
+import com.rodriguez.giomar.el_meneo.R
+import com.rodriguez.giomar.el_meneo.adapter.RelatedVideosAdapter
+import com.rodriguez.giomar.el_meneo.adapter.YoutubeVideoListAdapter
 import com.rodriguez.giomar.el_meneo.databinding.FragmentYoutubeVideoPlayerBinding
-import com.rodriguez.giomar.el_meneo.utils.FullScreenHelper
 import com.rodriguez.giomar.el_meneo.viewModels.shared.SharedYoutubeVideoViewModel
 import com.squareup.picasso.Picasso
 
@@ -30,6 +32,7 @@ class YoutubeVideoPlayerFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var sharedModel: SharedYoutubeVideoViewModel
     private val args by navArgs<YoutubeVideoPlayerFragmentArgs>()
+    private lateinit var relatedAdapter: RelatedVideosAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,11 +40,9 @@ class YoutubeVideoPlayerFragment : Fragment() {
         _binding = FragmentYoutubeVideoPlayerBinding.inflate(inflater, container, false)
         val selectedVideo = args.selectedVideo
 
-        loadChannelImage(selectedVideo.channelImageUrl)
-        binding.tvTitle.text = selectedVideo.title
-        binding.tvChannelName.text = selectedVideo.channelName
         sharedModel = ViewModelProvider(requireActivity())[SharedYoutubeVideoViewModel::class.java]
         addFullScreenListenerToPlayer()
+        initRecyclerView()
         lifecycle.addObserver(binding.youtubePlayerView)
 
         binding.youtubePlayerView.addYouTubePlayerListener(object :
@@ -58,13 +59,25 @@ class YoutubeVideoPlayerFragment : Fragment() {
             findNavController().navigateUp()
         }
 
+        sharedModel.relatedVideos.observe(viewLifecycleOwner, Observer { videos ->
+            relatedAdapter.addHeaderAndSubmitList(videos, selectedVideo.title)
+        })
 
 
         // Inflate the layout for this fragment
         return binding.root
     }
-    private fun loadChannelImage(channelImageUrl: String) {
-        Picasso.get().load(channelImageUrl).into(binding.ivChannel)
+    private fun initRecyclerView() {
+        binding.rvRelatedVideos.apply {
+            layoutManager = LinearLayoutManager(context)
+            relatedAdapter = RelatedVideosAdapter() { selectedVideo ->
+                //sharedModel.setRelatedVideos(model.videos.value!!)
+                findNavController().popBackStack(R.id.action_youtubeVideoPlayerFragment_self, true)
+                val action = YoutubeVideoPlayerFragmentDirections.actionYoutubeVideoPlayerFragmentSelf(selectedVideo)
+                findNavController().navigate(action)
+            }
+            adapter = relatedAdapter
+        }
     }
     private fun addFullScreenListenerToPlayer() {
         binding.youtubePlayerView.addFullScreenListener(object: YouTubePlayerFullScreenListener {

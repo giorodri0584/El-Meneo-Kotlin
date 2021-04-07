@@ -1,6 +1,7 @@
 package com.rodriguez.giomar.el_meneo.viewModels
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.rodriguez.giomar.el_meneo.GetAllYoutubeVideosQuery
@@ -18,13 +19,13 @@ class VideoListScreenFragmentViewModel : ViewModel() {
             fetchYoutubeVideos()
         }
     }
-    //val videos: LiveData<List<>>
-    private val isLoading: MutableLiveData<Boolean> by lazy {
+    val videos: LiveData<List<YoutubeVideo>> get() = _videos
+
+    private val _isLoading: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>().also { true }
     }
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
-    fun getVideos() = _videos
-    fun getIsLoading() = isLoading
     private fun fetchYoutubeVideos() {
         CoroutineScope(Dispatchers.IO).launch {
             val fetchedVideos: List<GetAllYoutubeVideosQuery.YoutubeVideo> = YoutubeVideoRepository.getYoutubeVideos()
@@ -35,7 +36,7 @@ class VideoListScreenFragmentViewModel : ViewModel() {
             }
             withContext(Dispatchers.Main){
                 _videos.value = castVideos
-                isLoading.value = false
+                _isLoading.value = false
             }
         }
     }

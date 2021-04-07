@@ -12,8 +12,10 @@ class SharedYoutubeVideoViewModel : ViewModel() {
     val selectedYoutubeVideo: LiveData<YoutubeVideo> by lazy {
         _selectedYoutubeVideo
     }
+    private val _relatedVideos: MutableLiveData<List<YoutubeVideo>> = MutableLiveData()
+    val relatedVideos: LiveData<List<YoutubeVideo>> get() = _relatedVideos
 
-    fun setSelectedYoutubeVideo(video: YoutubeVideo) {
-        _selectedYoutubeVideo.value = video
+    fun setRelatedVideos(videos: List<YoutubeVideo>) {
+        _relatedVideos.value = videos.shuffled().take(10)
     }
 }

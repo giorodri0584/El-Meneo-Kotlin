@@ -35,11 +35,11 @@ class VideoListScreenFragment : Fragment() {
         model = ViewModelProvider(this)[VideoListScreenFragmentViewModel::class.java]
         sharedModel = ViewModelProvider(requireActivity())[SharedYoutubeVideoViewModel::class.java]
         initializeRecyclerView()
-        model.getVideos().observe(viewLifecycleOwner, Observer { videos ->
+        model.videos.observe(viewLifecycleOwner, Observer { videos ->
             videoAdapter.setVideos(videos)
             videoAdapter.notifyDataSetChanged()
         })
-        model.getIsLoading().observe(viewLifecycleOwner, Observer {
+        model.isLoading.observe(viewLifecycleOwner, Observer {
             binding.pbIsLoading.visibility = View.GONE
         })
 
@@ -51,7 +51,7 @@ class VideoListScreenFragment : Fragment() {
         binding.rvYoutubeVideoList.apply {
             layoutManager = LinearLayoutManager(context)
             videoAdapter = YoutubeVideoListAdapter(){ selectedVideo ->
-                //sharedModel.setSelectedYoutubeVideo(video)
+                sharedModel.setRelatedVideos(model.videos.value!!)
                 val action = VideoListScreenFragmentDirections.actionVideoListScreenFragmentToYoutubeVideoPlayerFragment(selectedVideo)
                 findNavController().navigate(action)
             }
