@@ -16,6 +16,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
@@ -34,6 +36,7 @@ class YoutubeVideoPlayerFragment : Fragment() {
     private lateinit var sharedModel: SharedYoutubeVideoViewModel
     private val args by navArgs<YoutubeVideoPlayerFragmentArgs>()
     private lateinit var relatedAdapter: RelatedVideosAdapter
+    private lateinit var mInterstitialAd: InterstitialAd
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,6 +68,9 @@ class YoutubeVideoPlayerFragment : Fragment() {
             relatedAdapter.addHeaderAndSubmitList(relatedVideos, selectedVideo.title)
         })
 
+        sharedModel.showInterstitialAd.observe(viewLifecycleOwner, Observer { load ->
+            mInterstitialAd = object: InterstitialAd()
+        })
 
         // Inflate the layout for this fragment
         return binding.root
@@ -80,6 +86,9 @@ class YoutubeVideoPlayerFragment : Fragment() {
             }
             adapter = relatedAdapter
         }
+    }
+    private fun showInterstitialAd() {
+
     }
     private fun addFullScreenListenerToPlayer() {
         binding.youtubePlayerView.addFullScreenListener(object: YouTubePlayerFullScreenListener {
