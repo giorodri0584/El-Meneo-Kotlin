@@ -16,6 +16,6 @@ class SharedYoutubeVideoViewModel : ViewModel() {
     val relatedVideos: LiveData<List<YoutubeVideo>> get() = _relatedVideos
 
     fun setRelatedVideos(videos: List<YoutubeVideo>) {
-        _relatedVideos.value = videos.shuffled().take(10)
+        _relatedVideos.value = videos
     }
 }

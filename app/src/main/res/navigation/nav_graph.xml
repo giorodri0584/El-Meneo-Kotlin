@@ -23,6 +23,7 @@
             app:argType="com.rodriguez.giomar.el_meneo.model.YoutubeVideo" />
         <action
             android:id="@+id/action_youtubeVideoPlayerFragment_self"
-            app:destination="@id/youtubeVideoPlayerFragment" />
+            app:destination="@id/youtubeVideoPlayerFragment"
+            app:popUpTo="@+id/videoListScreenFragment"/>
     </fragment>
 </navigation>

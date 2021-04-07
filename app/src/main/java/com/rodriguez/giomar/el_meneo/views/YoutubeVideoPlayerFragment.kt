@@ -23,6 +23,7 @@ import com.rodriguez.giomar.el_meneo.R
 import com.rodriguez.giomar.el_meneo.adapter.RelatedVideosAdapter
 import com.rodriguez.giomar.el_meneo.adapter.YoutubeVideoListAdapter
 import com.rodriguez.giomar.el_meneo.databinding.FragmentYoutubeVideoPlayerBinding
+import com.rodriguez.giomar.el_meneo.model.YoutubeVideo
 import com.rodriguez.giomar.el_meneo.viewModels.shared.SharedYoutubeVideoViewModel
 import com.squareup.picasso.Picasso
 
@@ -59,8 +60,9 @@ class YoutubeVideoPlayerFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        sharedModel.relatedVideos.observe(viewLifecycleOwner, Observer { videos ->
-            relatedAdapter.addHeaderAndSubmitList(videos, selectedVideo.title)
+        sharedModel.relatedVideos.observe(viewLifecycleOwner, Observer<List<YoutubeVideo>> { videos ->
+            val relatedVideos: List<YoutubeVideo> = videos.shuffled().take(15)
+            relatedAdapter.addHeaderAndSubmitList(relatedVideos, selectedVideo.title)
         })
 
 

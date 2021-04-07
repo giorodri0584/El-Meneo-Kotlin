@@ -36,6 +36,7 @@ class VideoListScreenFragment : Fragment() {
         sharedModel = ViewModelProvider(requireActivity())[SharedYoutubeVideoViewModel::class.java]
         initializeRecyclerView()
         model.videos.observe(viewLifecycleOwner, Observer { videos ->
+            sharedModel.setRelatedVideos(videos)
             videoAdapter.setVideos(videos)
             videoAdapter.notifyDataSetChanged()
         })
@@ -51,7 +52,6 @@ class VideoListScreenFragment : Fragment() {
         binding.rvYoutubeVideoList.apply {
             layoutManager = LinearLayoutManager(context)
             videoAdapter = YoutubeVideoListAdapter(){ selectedVideo ->
-                sharedModel.setRelatedVideos(model.videos.value!!)
                 val action = VideoListScreenFragmentDirections.actionVideoListScreenFragmentToYoutubeVideoPlayerFragment(selectedVideo)
                 findNavController().navigate(action)
             }
