@@ -52,7 +52,7 @@ class VideoListScreenFragment : Fragment() {
         binding.rvYoutubeVideoList.apply {
             layoutManager = LinearLayoutManager(context)
             videoAdapter = YoutubeVideoListAdapter(){ selectedVideo ->
-                sharedModel.showInterstitialAd
+                sharedModel.loadInterstitialAd()
                 val action = VideoListScreenFragmentDirections.actionVideoListScreenFragmentToYoutubeVideoPlayerFragment(selectedVideo)
                 findNavController().navigate(action)
             }

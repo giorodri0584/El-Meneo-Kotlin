@@ -16,14 +16,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
 import com.rodriguez.giomar.el_meneo.R
 import com.rodriguez.giomar.el_meneo.adapter.RelatedVideosAdapter
-import com.rodriguez.giomar.el_meneo.adapter.YoutubeVideoListAdapter
 import com.rodriguez.giomar.el_meneo.databinding.FragmentYoutubeVideoPlayerBinding
 import com.rodriguez.giomar.el_meneo.model.YoutubeVideo
 import com.rodriguez.giomar.el_meneo.viewModels.shared.SharedYoutubeVideoViewModel
@@ -37,6 +37,7 @@ class YoutubeVideoPlayerFragment : Fragment() {
     private val args by navArgs<YoutubeVideoPlayerFragmentArgs>()
     private lateinit var relatedAdapter: RelatedVideosAdapter
     private lateinit var mInterstitialAd: InterstitialAd
+    private lateinit var mYoutubePlayer: YouTubePlayer
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,6 +54,7 @@ class YoutubeVideoPlayerFragment : Fragment() {
             AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 super.onReady(youTubePlayer)
+                mYoutubePlayer = youTubePlayer
                 val videoId = selectedVideo.videoId
                 youTubePlayer.loadVideo(videoId, 0.toFloat())
             }
@@ -63,13 +65,15 @@ class YoutubeVideoPlayerFragment : Fragment() {
             findNavController().navigateUp()
         }
 
-        sharedModel.relatedVideos.observe(viewLifecycleOwner, Observer<List<YoutubeVideo>> { videos ->
+        sharedModel.relatedVideos.observe(viewLifecycleOwner, Observer { videos ->
             val relatedVideos: List<YoutubeVideo> = videos.shuffled().take(15)
             relatedAdapter.addHeaderAndSubmitList(relatedVideos, selectedVideo.title)
         })
 
         sharedModel.showInterstitialAd.observe(viewLifecycleOwner, Observer { load ->
-            mInterstitialAd = object: InterstitialAd()
+            if(load) {
+                showInterstitialAd()
+            }
         })
 
         // Inflate the layout for this fragment
@@ -88,7 +92,39 @@ class YoutubeVideoPlayerFragment : Fragment() {
         }
     }
     private fun showInterstitialAd() {
+        mInterstitialAd = InterstitialAd(context)
+        //production ad unit
+        mInterstitialAd.adUnitId = "ca-app-pub-6174585484194945/6112193571"
+        //test ad unit
+        //mInterstitialAd.adUnitId = "ca-app-pub-3940256099942544/1033173712"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
+        mInterstitialAd.adListener = object: AdListener() {
+            override fun onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+                mYoutubePlayer.pause()
+                mInterstitialAd.show()
+            }
 
+            override fun onAdFailedToLoad(p0: Int) {
+
+            }
+
+            override fun onAdOpened() {
+                // Code to be executed when the ad is displayed.
+            }
+
+            override fun onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            override fun onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            override fun onAdClosed() {
+                mYoutubePlayer.play()
+            }
+        }
     }
     private fun addFullScreenListenerToPlayer() {
         binding.youtubePlayerView.addFullScreenListener(object: YouTubePlayerFullScreenListener {

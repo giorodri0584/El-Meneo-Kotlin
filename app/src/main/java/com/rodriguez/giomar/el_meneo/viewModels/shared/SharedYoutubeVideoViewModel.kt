@@ -22,16 +22,17 @@ class SharedYoutubeVideoViewModel : ViewModel() {
     fun setRelatedVideos(videos: List<YoutubeVideo>) {
         _relatedVideos.value = videos
     }
-    fun loadInsterstitialAd() {
+    fun loadInterstitialAd() {
         when(adCounter) {
             0 -> {
                 _showInterstitialAd.value = true
                 adCounter++
             }
-            3 -> {
+            2 -> {
                 adCounter = 0
             }
             else -> {
+                _showInterstitialAd.value = false
                 adCounter++
             }
         }
