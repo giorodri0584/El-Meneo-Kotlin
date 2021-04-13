@@ -12,9 +12,13 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rodriguez.giomar.el_meneo.R
 import com.rodriguez.giomar.el_meneo.adapter.YoutubeVideoListAdapter
+import com.rodriguez.giomar.el_meneo.api.YoutubeVideoApiService
 import com.rodriguez.giomar.el_meneo.databinding.FragmentVideoListScreenBinding
 import com.rodriguez.giomar.el_meneo.viewModels.VideoListScreenFragmentViewModel
 import com.rodriguez.giomar.el_meneo.viewModels.shared.SharedYoutubeVideoViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class VideoListScreenFragment : Fragment() {
     val TAG = "VideoListScreenFragment"
@@ -44,6 +48,9 @@ class VideoListScreenFragment : Fragment() {
             binding.pbIsLoading.visibility = View.GONE
         })
 
+        CoroutineScope(Dispatchers.IO).launch {
+            YoutubeVideoApiService.getAllVideos()
+        }
 
         return binding.root
     }

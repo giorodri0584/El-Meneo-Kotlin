@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: "com.apollographql.apollo"
 
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
@@ -45,6 +46,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
+
     // -- Retrofit2
     def retrofit2_version = "2.6.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
@@ -69,6 +71,17 @@ dependencies {
 
     //admob
     implementation 'com.google.android.gms:play-services-ads:17.2.1'
+
+    //ktor
+    def ktor_version = "1.5.3"
+    implementation "io.ktor:ktor-client-core:$ktor_version"
+    implementation "io.ktor:ktor-client-cio:$ktor_version"
+    implementation "io.ktor:ktor-client-serialization:$ktor_version"
+    implementation "io.ktor:ktor-client-gson:$ktor_version"
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+
+
 
 
     testImplementation 'junit:junit:4.12'

@@ -2,7 +2,6 @@ package com.rodriguez.giomar.el_meneo.repository
 
 import android.util.Log
 import com.rodriguez.giomar.el_meneo.GetAllYoutubeVideosQuery
-import com.rodriguez.giomar.el_meneo.api.MyRetrofitBuilder
 import com.rodriguez.giomar.el_meneo.api.YoutubeVideoGraphqlService
 
 
