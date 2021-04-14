@@ -1,5 +1,6 @@
 package com.rodriguez.giomar.el_meneo.viewModels.shared
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,6 +24,7 @@ class SharedYoutubeVideoViewModel : ViewModel() {
         _relatedVideos.value = videos
     }
     fun loadInterstitialAd() {
+        Log.d("Ads", "Counter: $adCounter")
         when(adCounter) {
             0 -> {
                 _showInterstitialAd.value = true

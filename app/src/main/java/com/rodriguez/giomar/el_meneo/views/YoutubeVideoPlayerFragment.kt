@@ -84,6 +84,7 @@ class YoutubeVideoPlayerFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             relatedAdapter = RelatedVideosAdapter() { selectedVideo ->
                 //sharedModel.setRelatedVideos(model.videos.value!!)
+                sharedModel.loadInterstitialAd()
                 findNavController().popBackStack(R.id.action_youtubeVideoPlayerFragment_self, true)
                 val action = YoutubeVideoPlayerFragmentDirections.actionYoutubeVideoPlayerFragmentSelf(selectedVideo)
                 findNavController().navigate(action)

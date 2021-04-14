@@ -12,12 +12,11 @@ object YoutubeVideoApiService {
     private const val TAG = "YoutubeVideoApiService"
     private val gson: Gson = Gson()
     suspend fun getAllVideos(): List<YoutubeVideo> {
-        val response: HttpResponse = MyKtorClient.client.get("${MyKtorClient.BASE_URL}/YoutubeVideos")
+        val response: HttpResponse = MyKtorClient.client.get("${MyKtorClient.BASE_URL}/YoutubeVideos?order=-updatedAt")
         //Log.d(TAG, response.readText())
         val json = gson.fromJson(response.readText(), JsonObject::class.java)
         val videosString = json.get("results")
-        val videosArray = gson.fromJson<Array<YoutubeVideo>>(videosString, Array<YoutubeVideo>::class.java)
-        val videos = ArrayList(videosArray.toMutableList())
-        return videos
+        val videosArray = gson.fromJson(videosString, Array<YoutubeVideo>::class.java)
+        return ArrayList(videosArray.toMutableList())
     }
 }
