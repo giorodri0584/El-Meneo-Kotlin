@@ -14,6 +14,8 @@ import com.rodriguez.giomar.el_meneo.R
 import com.rodriguez.giomar.el_meneo.adapter.YoutubeVideoListAdapter
 import com.rodriguez.giomar.el_meneo.api.YoutubeVideoApiService
 import com.rodriguez.giomar.el_meneo.databinding.FragmentVideoListScreenBinding
+import com.rodriguez.giomar.el_meneo.ui.homeScreen.HomeScreen
+import com.rodriguez.giomar.el_meneo.ui.homeScreen.HomeScreenDirections
 import com.rodriguez.giomar.el_meneo.viewModels.VideoListScreenFragmentViewModel
 import com.rodriguez.giomar.el_meneo.viewModels.shared.SharedYoutubeVideoViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -60,6 +62,7 @@ class VideoListScreenFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             videoAdapter = YoutubeVideoListAdapter(){ selectedVideo ->
                 sharedModel.loadInterstitialAd()
+
                 val action = VideoListScreenFragmentDirections.actionVideoListScreenFragmentToYoutubeVideoPlayerFragment(selectedVideo)
                 findNavController().navigate(action)
             }

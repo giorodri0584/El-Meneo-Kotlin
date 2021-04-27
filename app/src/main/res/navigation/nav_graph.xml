@@ -29,5 +29,9 @@
     <fragment
         android:id="@+id/homeScreen"
         android:name="com.rodriguez.giomar.el_meneo.ui.homeScreen.HomeScreen"
-        android:label="HomeScreen" />
+        android:label="HomeScreen" >
+        <action
+            android:id="@+id/action_homeScreen_to_youtubeVideoPlayerFragment"
+            app:destination="@id/youtubeVideoPlayerFragment" />
+    </fragment>
 </navigation>
