@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
@@ -39,6 +40,7 @@ class HomeScreen : Fragment() {
                         TopAppBar(title = {
                             Text(
                             "El Meneo",
+                                color = Color.White
                             )
                                           }, backgroundColor = colorResource(id = R.color.colorPrimary))
                              },
