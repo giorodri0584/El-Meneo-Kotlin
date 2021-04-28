@@ -39,8 +39,7 @@ class HomeScreen : Fragment() {
                     topBar = {
                         TopAppBar(title = {
                             Text(
-                            "El Meneo",
-                                color = Color.White
+                            "El Meneo"
                             )
                                           }, backgroundColor = colorResource(id = R.color.colorPrimary))
                              },
