@@ -4,8 +4,8 @@
     <color name="colorPrimary">#FB0404</color>
     <color name="colorPrimaryDark">#bf0000</color>
     -->
-    <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#CCCCCC</color>
+    <color name="colorPrimary">#FB0404</color>
+    <color name="colorPrimaryDark">#bf0000</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="background">#CCCCCC</color>
     <color name="white">#FFFFFF</color>

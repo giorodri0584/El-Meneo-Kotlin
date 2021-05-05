@@ -61,6 +61,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.4'
+    implementation "androidx.recyclerview:recyclerview:1.2.0"
 
     // -- Retrofit2
     def retrofit2_version = "2.6.0"
@@ -115,6 +116,8 @@ dependencies {
 
     //glide compose
     implementation "com.google.accompanist:accompanist-glide:0.8.1"
+
+    implementation "androidx.navigation:navigation-compose:1.0.0-alpha10"
 
 
 

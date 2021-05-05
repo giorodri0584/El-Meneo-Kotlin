@@ -1,4 +1,4 @@
-package com.rodriguez.giomar.el_meneo.ui.homeScreen.components
+package com.rodriguez.giomar.el_meneo.ui.videoScreen.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding

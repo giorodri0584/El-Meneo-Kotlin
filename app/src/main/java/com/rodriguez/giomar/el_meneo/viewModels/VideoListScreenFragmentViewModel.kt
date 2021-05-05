@@ -24,6 +24,9 @@ class VideoListScreenFragmentViewModel : ViewModel() {
     }
     val isLoading: LiveData<Boolean> get() = _isLoading
 
+    var scrollPosition: Int = 0
+    var scrollOffset: Int = 0
+
     private fun fetchYoutubeVideos() {
         CoroutineScope(Dispatchers.IO).launch {
             val fetchedVideos: List<YoutubeVideo> = YoutubeVideoRepository.getYoutubeVideos()

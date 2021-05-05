@@ -1,4 +1,4 @@
-package com.rodriguez.giomar.el_meneo.ui.homeScreen.components
+package com.rodriguez.giomar.el_meneo.ui.videoScreen.components
 
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
