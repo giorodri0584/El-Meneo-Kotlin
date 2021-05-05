@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_home_24"
         android:title="@string/home"/>
     <item
-        android:id="@+id/videoScreen2"
+        android:id="@+id/videoScreen"
         android:enabled="true"
         android:icon="@drawable/ic_video_library_24"
         android:title="@string/videos"/>

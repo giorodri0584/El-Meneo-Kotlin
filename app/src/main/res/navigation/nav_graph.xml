@@ -5,7 +5,7 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeScreen">
     <fragment
-        android:id="@+id/videoScreen"
+        android:id="@+id/videoScreen3"
         android:name="com.rodriguez.giomar.el_meneo.views.VideoListScreenFragment"
         android:label="fragment_video_list_screen"
         tools:layout="@layout/fragment_video_list_screen" >
@@ -24,7 +24,7 @@
         <action
             android:id="@+id/action_youtubeVideoPlayerFragment_self"
             app:destination="@id/youtubeVideoPlayerFragment"
-            app:popUpTo="@+id/videoScreen"/>
+            app:popUpTo="@+id/videoScreen3"/>
     </fragment>
     <fragment
         android:id="@+id/homeScreen"
@@ -39,7 +39,11 @@
         android:name="com.rodriguez.giomar.el_meneo.ui.storyScreen.StoryScreen"
         android:label="StoryScreen" />
     <fragment
-        android:id="@+id/videoScreen2"
-        android:name="com.rodriguez.giomar.el_meneo.ui.videoScreen.VideoScreen1"
-        android:label="VideoScreen" />
+        android:id="@+id/videoScreen"
+        android:name="com.rodriguez.giomar.el_meneo.ui.videoScreen.VideoScreen"
+        android:label="VideoScreen" >
+        <action
+            android:id="@+id/action_videoScreen_to_youtubeVideoPlayerFragment"
+            app:destination="@id/youtubeVideoPlayerFragment" />
+    </fragment>
 </navigation>

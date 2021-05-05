@@ -60,7 +60,7 @@ class VideoListScreenFragment : Fragment() {
     private fun initializeRecyclerView() {
         Log.d(TAG, "initializing recyclerView")
         binding.rvYoutubeVideoList.apply {
-            //mLayoutManager.scrollToPositionWithOffset(model.scrollPosition, model.scrollOffset)
+
             layoutManager = mLayoutManager
             videoAdapter = YoutubeVideoListAdapter(){ selectedVideo ->
                 sharedModel.loadInterstitialAd()
@@ -69,14 +69,16 @@ class VideoListScreenFragment : Fragment() {
                 findNavController().navigate(action)
             }
             adapter = videoAdapter
-            //layoutManager?.scrollToPosition(model.scrollPosition)
-
-
+            videoAdapter.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+    }
     override fun onDestroy() {
-        model.scrollPosition = mLayoutManager.findFirstVisibleItemPosition()
-        model.scrollOffset = binding.rvYoutubeVideoList.computeVerticalScrollOffset()
+        //model.scrollPosition = mLayoutManager.findFirstVisibleItemPosition()
+        //model.scrollOffset = binding.rvYoutubeVideoList.computeVerticalScrollOffset()
         Log.d(TAG, "pos: ${model.scrollPosition}")
         Log.d(TAG, "offset: ${model.scrollOffset}")
         _binding = null

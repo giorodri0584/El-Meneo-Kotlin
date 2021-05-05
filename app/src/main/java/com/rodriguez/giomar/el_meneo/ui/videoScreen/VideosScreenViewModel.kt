@@ -1,6 +1,8 @@
 package com.rodriguez.giomar.el_meneo.ui.videoScreen
 
 import android.util.Log
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel

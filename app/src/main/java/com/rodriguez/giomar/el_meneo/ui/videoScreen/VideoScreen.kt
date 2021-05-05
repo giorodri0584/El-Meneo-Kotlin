@@ -5,10 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.colorResource
@@ -21,11 +23,13 @@ import com.rodriguez.giomar.el_meneo.ui.videoScreen.components.HomeScreenMainLis
 import com.rodriguez.giomar.el_meneo.ui.videoScreen.components.LoadingComponent
 import com.rodriguez.giomar.el_meneo.viewModels.VideoScreenViewModel
 import com.rodriguez.giomar.el_meneo.viewModels.shared.SharedYoutubeVideoViewModel
+import com.rodriguez.giomar.el_meneo.views.VideoListScreenFragmentDirections
 
-class VideoScreen1 : Fragment() {
+class VideoScreen : Fragment() {
     private val TAG = "VideoScreen"
     private lateinit var model: VideoScreenViewModel
     private lateinit var sharedModel: SharedYoutubeVideoViewModel
+    private lateinit var listState: LazyListState
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,7 +42,7 @@ class VideoScreen1 : Fragment() {
             setContent {
                 val videos = model.videos.value
                 val isLoading = model.isLoading.value
-                val listState = rememberLazyListState()
+                listState = model.listState
                 sharedModel.setRelatedVideos(videos)
                 Scaffold (
                     topBar = {
@@ -56,9 +60,9 @@ class VideoScreen1 : Fragment() {
                         if (videos.isNotEmpty()) {
                             HomeScreenMainListComponent(videos, listState ) { selectedVideo ->
                                 sharedModel.loadInterstitialAd()
-                                //val action = VideoScreenDirections.actionVideoScreenToYoutubeVideoPlayerFragment(selectedVideo)
+                                val action = VideoScreenDirections.actionVideoScreenToYoutubeVideoPlayerFragment(selectedVideo)
                                 //val action = VideoListScreenFragmentDirections.actionVideoListScreenFragmentToYoutubeVideoPlayerFragment(selectedVideo)
-                                //findNavController().navigate(action)
+                                findNavController().navigate(action)
                             }
                         }
                     },
@@ -70,6 +74,7 @@ class VideoScreen1 : Fragment() {
     }
 
     override fun onDestroy() {
+        model.listState = listState
         Log.d(TAG, "onDestroy()")
         super.onDestroy()
     }

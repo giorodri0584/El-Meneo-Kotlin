@@ -1,6 +1,7 @@
 package com.rodriguez.giomar.el_meneo.viewModels
 
 import android.util.Log
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -16,6 +17,7 @@ class VideoScreenViewModel : ViewModel() {
     val videos: MutableState<List<YoutubeVideo>> = mutableStateOf(listOf())
     val isLoading: MutableState<Boolean> = mutableStateOf(false)
     var videosScrollPosition: Int = 0
+    var listState: LazyListState = LazyListState()
     init {
         fetchYoutubeVideos()
     }
