@@ -27,9 +27,6 @@ class RelatedVideosAdapter(val onVideoSelect: (YoutubeVideo) -> Unit) : ListAdap
     private val TAG = "RelatedVideosAdapter"
 
     fun addHeaderAndSubmitList(list: List<YoutubeVideo>, title: String) {
-        for (video in list) {
-            Log.d(TAG, video.title)
-        }
         CoroutineScope(Dispatchers.Default).launch {
             val items = when (list) {
                 null -> listOf(DataItem.Header(title))

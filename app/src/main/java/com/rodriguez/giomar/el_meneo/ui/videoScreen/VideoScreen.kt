@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.rodriguez.giomar.el_meneo.R
 import com.rodriguez.giomar.el_meneo.ui.homeScreen.HomeScreenDirections
+import com.rodriguez.giomar.el_meneo.ui.theme.ElMeneoTheme
 import com.rodriguez.giomar.el_meneo.ui.videoScreen.components.HomeScreenMainListComponent
 import com.rodriguez.giomar.el_meneo.ui.videoScreen.components.LoadingComponent
 import com.rodriguez.giomar.el_meneo.viewModels.VideoScreenViewModel
@@ -44,31 +45,30 @@ class VideoScreen : Fragment() {
                 val isLoading = model.isLoading.value
                 listState = model.listState
                 sharedModel.setRelatedVideos(videos)
-                Scaffold (
-                    topBar = {
-                        TopAppBar(title = {
-                            Text(
-                                "El Meneo",
-                                color = Color.White
-                            )
-                        }, backgroundColor = colorResource(id = R.color.colorPrimary))
-                    },
-                    content = {
-                        if(isLoading) {
-                            LoadingComponent()
-                        }
-                        if (videos.isNotEmpty()) {
-                            HomeScreenMainListComponent(videos, listState ) { selectedVideo ->
-                                sharedModel.loadInterstitialAd()
-                                val action = VideoScreenDirections.actionVideoScreenToYoutubeVideoPlayerFragment(selectedVideo)
-                                //val action = VideoListScreenFragmentDirections.actionVideoListScreenFragmentToYoutubeVideoPlayerFragment(selectedVideo)
-                                findNavController().navigate(action)
+                ElMeneoTheme() {
+                    Scaffold (
+                        topBar = {
+                            TopAppBar(title = {
+                                Text(
+                                    "Videos"
+                                )
+                            })
+                        },
+                        content = {
+                            if(isLoading) {
+                                LoadingComponent()
                             }
-                        }
-                    },
-                )
-
-
+                            if (videos.isNotEmpty()) {
+                                HomeScreenMainListComponent(videos, listState ) { selectedVideo ->
+                                    sharedModel.loadInterstitialAd()
+                                    val action = VideoScreenDirections.actionVideoScreenToYoutubeVideoPlayerFragment(selectedVideo)
+                                    //val action = VideoListScreenFragmentDirections.actionVideoListScreenFragmentToYoutubeVideoPlayerFragment(selectedVideo)
+                                    findNavController().navigate(action)
+                                }
+                            }
+                        },
+                    )
+                }
             }
         }
     }
