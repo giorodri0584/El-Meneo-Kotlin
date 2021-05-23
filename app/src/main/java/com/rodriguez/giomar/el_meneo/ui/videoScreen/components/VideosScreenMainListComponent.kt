@@ -1,6 +1,7 @@
 package com.rodriguez.giomar.el_meneo.ui.videoScreen.components
 
 import android.util.Log
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.*
@@ -17,24 +18,20 @@ import com.rodriguez.giomar.el_meneo.viewModels.VideoScreenViewModel
 import kotlinx.coroutines.launch
 
 @Composable
-fun HomeScreenMainListComponent (
+fun VideosScreenMainListComponent (
     videos: List<YoutubeVideo>,
     listState: LazyListState,
     onVideoSelect: (YoutubeVideo) -> Unit
 ){
-//    LaunchedEffect(listState){
-//        this.launch {
-//            // Animate scroll to the 10th item
-//            listState.scrollToItem(index = model.videosScrollPosition)
-//        }
-//    }
-    LazyColumn(state = listState) {
+    LazyColumn(
+        state = listState,
+        verticalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
         items(videos) { video ->
             VideoCardComponent(video) { selectedVideo ->
                 onVideoSelect(selectedVideo)
             }
         }
     }
-//    Log.d("Video", model.videosScrollPosition.toString())
 
 }

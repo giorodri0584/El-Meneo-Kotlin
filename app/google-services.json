@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "142115625048",
+    "project_id": "elmeneoapp-e7c12",
+    "storage_bucket": "elmeneoapp-e7c12.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142115625048:android:67fbe05a6a0d7c0cae122d",
+        "android_client_info": {
+          "package_name": "com.rodriguez.giomar.el_meneo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142115625048-ktv27m4bfvj446ejl9hqg3f2qn9deevs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD577lg84IXhkQojIFOpYPSbBO9Jz_SSqc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "142115625048-ktv27m4bfvj446ejl9hqg3f2qn9deevs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "142115625048-3oganf03a0h49cs3e41kv8cqoqs8oflr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rodriguez.giomar.elMeneo"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:142115625048:android:9f060fc234791380ae122d",
+        "android_client_info": {
+          "package_name": "com.rodriguez.giomar.el_meneo.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "142115625048-ktv27m4bfvj446ejl9hqg3f2qn9deevs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD577lg84IXhkQojIFOpYPSbBO9Jz_SSqc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "142115625048-ktv27m4bfvj446ejl9hqg3f2qn9deevs.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "142115625048-3oganf03a0h49cs3e41kv8cqoqs8oflr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.rodriguez.giomar.elMeneo"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeScreen">
+    app:startDestination="@id/postDetailsScreen">
     <fragment
         android:id="@+id/videoScreen3"
         android:name="com.rodriguez.giomar.el_meneo.views.VideoListScreenFragment"
@@ -30,9 +30,10 @@
         android:id="@+id/homeScreen"
         android:name="com.rodriguez.giomar.el_meneo.ui.homeScreen.HomeScreen"
         android:label="HomeScreen" >
+
         <action
-            android:id="@+id/action_homeScreen_to_youtubeVideoPlayerFragment"
-            app:destination="@id/youtubeVideoPlayerFragment" />
+            android:id="@+id/action_homeScreen_to_postDetailsScreen"
+            app:destination="@id/postDetailsScreen" />
     </fragment>
     <fragment
         android:id="@+id/storyScreen"
@@ -46,4 +47,8 @@
             android:id="@+id/action_videoScreen_to_youtubeVideoPlayerFragment"
             app:destination="@id/youtubeVideoPlayerFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/postDetailsScreen"
+        android:name="com.rodriguez.giomar.el_meneo.ui.postDetailsScreen.PostDetailsScreen"
+        android:label="PostDetailsScreen" />
 </navigation>

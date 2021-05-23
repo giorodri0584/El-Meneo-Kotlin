@@ -7,21 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.res.colorResource
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.rodriguez.giomar.el_meneo.R
-import com.rodriguez.giomar.el_meneo.ui.homeScreen.HomeScreenDirections
 import com.rodriguez.giomar.el_meneo.ui.theme.ElMeneoTheme
-import com.rodriguez.giomar.el_meneo.ui.videoScreen.components.HomeScreenMainListComponent
 import com.rodriguez.giomar.el_meneo.ui.videoScreen.components.LoadingComponent
+import com.rodriguez.giomar.el_meneo.ui.videoScreen.components.VideosScreenMainListComponent
 import com.rodriguez.giomar.el_meneo.viewModels.VideoScreenViewModel
 import com.rodriguez.giomar.el_meneo.viewModels.shared.SharedYoutubeVideoViewModel
 import com.rodriguez.giomar.el_meneo.views.VideoListScreenFragmentDirections
@@ -48,18 +45,20 @@ class VideoScreen : Fragment() {
                 ElMeneoTheme() {
                     Scaffold (
                         topBar = {
-                            TopAppBar(title = {
-                                Text(
-                                    "Videos"
-                                )
-                            })
+                            TopAppBar(
+                                title = {
+                                    Text(
+                                        "Videos"
+                                    )
+                                }
+                            )
                         },
                         content = {
                             if(isLoading) {
                                 LoadingComponent()
                             }
                             if (videos.isNotEmpty()) {
-                                HomeScreenMainListComponent(videos, listState ) { selectedVideo ->
+                                VideosScreenMainListComponent(videos, listState ) { selectedVideo ->
                                     sharedModel.loadInterstitialAd()
                                     val action = VideoScreenDirections.actionVideoScreenToYoutubeVideoPlayerFragment(selectedVideo)
                                     //val action = VideoListScreenFragmentDirections.actionVideoListScreenFragmentToYoutubeVideoPlayerFragment(selectedVideo)
